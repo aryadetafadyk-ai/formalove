@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Little Story For You</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+      :root {
+        --pink: #e8a8b8;
+        --soft-pink: #fce8ed;
+        --cream: #fff8ef;
+        --brown: #755b55;
+        --dark: #604943;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--cream);
+        color: var(--dark);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      /* BACKGROUND */
+
+      .background {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background:
+          radial-gradient(circle at 10% 15%, #f9dce5 0, transparent 30%),
+          radial-gradient(circle at 90% 80%, #f8e5d4 0, transparent 30%),
+          #fff8ef;
+      }
+
+      .heart {
+        position: fixed;
+        color: #edc4cf;
+        opacity: 0.45;
+        pointer-events: none;
+        animation: floatHeart 7s infinite ease-in-out;
+        z-index: -1;
+      }
+
+      .heart:nth-child(1) {
+        top: 15%;
+        left: 8%;
+        font-size: 25px;
+      }
+
+      .heart:nth-child(2) {
+        top: 70%;
+        right: 8%;
+        font-size: 30px;
+        animation-delay: 2s;
+      }
+
+      .heart:nth-child(3) {
+        top: 40%;
+        right: 15%;
+        font-size: 18px;
+        animation-delay: 1s;
+      }
+
+      @keyframes floatHeart {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* NAVBAR */
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 7%;
+      }
+
+      .logo {
+        font-weight: 700;
+        color: #bd8191;
+        letter-spacing: 1px;
+      }
+
+      .music-btn {
+        border: 1px solid #eac5ce;
+        background: #fff;
+        color: #a66f80;
+        padding: 10px 17px;
+        border-radius: 30px;
+        font-size: 12px;
+      }
+
+      /* SLIDE */
+
+      .slides {
+        width: 100%;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 25px 18px 50px;
+      }
+
+      .slide {
+        display: none;
+        width: 100%;
+        max-width: 850px;
+        text-align: center;
+        animation: appear 0.7s ease;
+      }
+
+      .slide.active {
+        display: block;
+      }
+
+      @keyframes appear {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .small-title {
+        font-size: 12px;
+        letter-spacing: 3px;
+        color: #bd8191;
+        margin-bottom: 18px;
+        font-weight: 700;
+      }
+
+      h1,
+      h2 {
+        font-family: "Playfair Display", serif;
+        color: #a96e7e;
+      }
+
+      h1 {
+        font-size: clamp(35px, 7vw, 65px);
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: clamp(29px, 5vw, 43px);
+        margin-bottom: 17px;
+      }
+
+      .description {
+        max-width: 600px;
+        margin: auto;
+        line-height: 1.9;
+        font-size: 15px;
+        color: #856b65;
+      }
+
+      .highlight {
+        color: #bd8191;
+        font-weight: 700;
+      }
+
+      /* NAILONG MASCOT */
+
+      .mascot-area {
+        margin: 25px auto;
+        height: 190px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .dino {
+        width: 135px;
+        height: 145px;
+        position: relative;
+        animation: dinoFloat 2.5s infinite ease-in-out;
+      }
+
+      @keyframes dinoFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-3deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(3deg);
+        }
+      }
+
+      .dino-body {
+        position: absolute;
+        width: 100px;
+        height: 108px;
+        background: #ffdb67;
+        border-radius: 48% 48% 40% 40%;
+        bottom: 5px;
+        left: 17px;
+        border: 3px solid #e8b94c;
+        box-shadow: inset -9px -5px 0 #f7c955;
+      }
+
+      .dino-belly {
+        position: absolute;
+        width: 55px;
+        height: 70px;
+        background: #fff0b5;
+        border-radius: 50%;
+        bottom: 9px;
+        left: 39px;
+      }
+
+      .dino-eye {
+        position: absolute;
+        width: 9px;
+        height: 12px;
+        background: #59453b;
+        border-radius: 50%;
+        top: 35px;
+        z-index: 2;
+      }
+
+      .eye-left {
+        left: 43px;
+      }
+      .eye-right {
+        right: 43px;
+      }
+
+      .dino-cheek {
+        position: absolute;
+        background: #f69b9c;
+        opacity: 0.8;
+        width: 14px;
+        height: 8px;
+        border-radius: 50%;
+        top: 55px;
+        z-index: 2;
+      }
+
+      .cheek-left {
+        left: 25px;
+      }
+      .cheek-right {
+        right: 25px;
+      }
+
+      .dino-mouth {
+        position: absolute;
+        top: 54px;
+        left: 61px;
+        width: 12px;
+        height: 7px;
+        border-bottom: 2px solid #805a42;
+        border-radius: 50%;
+        z-index: 2;
+      }
+
+      .dino-tail {
+        position: absolute;
+        width: 43px;
+        height: 23px;
+        background: #ffdb67;
+        border: 3px solid #e8b94c;
+        border-radius: 50%;
+        right: -8px;
+        bottom: 12px;
+        transform: rotate(-30deg);
+      }
+
+      .dino-spike {
+        position: absolute;
+        width: 17px;
+        height: 19px;
+        background: #f6bd4e;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        z-index: 2;
+      }
+
+      .spike1 {
+        top: -6px;
+        left: 32px;
+      }
+      .spike2 {
+        top: -11px;
+        left: 52px;
+      }
+      .spike3 {
+        top: -6px;
+        left: 72px;
+      }
+
+      .dino-arm {
+        position: absolute;
+        width: 24px;
+        height: 13px;
+        background: #ffdb67;
+        border: 2px solid #e8b94c;
+        border-radius: 50%;
+        top: 83px;
+        z-index: 3;
+      }
+
+      .arm-left {
+        left: 3px;
+        transform: rotate(30deg);
+      }
+
+      .arm-right {
+        right: 3px;
+        transform: rotate(-30deg);
+        animation: wave 1s infinite alternate;
+      }
+
+      @keyframes wave {
+        to {
+          transform: rotate(-65deg);
+        }
+      }
+
+      .mascot-text {
+        position: absolute;
+        top: 0;
+        right: 5%;
+        background: white;
+        padding: 10px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        box-shadow: 0 5px 20px #00000010;
+        animation: floatHeart 3s infinite;
+      }
+
+      /* BUTTON */
+
+      .next-btn {
+        margin-top: 30px;
+        padding: 14px 30px;
+        border: none;
+        border-radius: 30px;
+        background: #d995a7;
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        box-shadow: 0 7px 18px #d995a744;
+        transition: 0.3s;
+      }
+
+      .next-btn:hover {
+        background: #bd7d91;
+        transform: translateY(-3px);
+      }
+
+      .back-btn {
+        margin-right: 8px;
+        background: #fff;
+        color: #ad7787;
+        border: 1px solid #e9c5ce;
+        box-shadow: none;
+      }
+
+      /* PHOTO GALLERY */
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+        max-width: 650px;
+        margin: 30px auto 0;
+      }
+
+      .photo-card {
+        background: white;
+        padding: 12px 12px 20px;
+        border-radius: 7px;
+        box-shadow: 0 8px 25px #8d68661a;
+        transform: rotate(-2deg);
+        transition: 0.3s;
+      }
+
+      .photo-card:nth-child(2) {
+        transform: rotate(2deg);
+      }
+
+      .photo-card:hover {
+        transform: translateY(-7px) rotate(0);
+      }
+
+      .photo-frame {
+        width: 100%;
+        height: 190px;
+        overflow: hidden;
+        background: #f6e4e5;
+        border-radius: 4px;
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* POSISI FOTO 3 DAN FOTO 4 LEBIH TURUN */
+
+      #slide3 .photo-card:nth-child(1) .photo-frame img {
+        object-position: center 70%;
+      }
+
+      #slide3 .photo-card:nth-child(2) .photo-frame img {
+        object-position: center 80%;
+      }
+
+      .photo-caption {
+        font-family: "Playfair Display", serif;
+        color: #986a72;
+        font-size: 15px;
+        margin-top: 14px;
+      }
+
+      .photo-sub {
+        font-size: 11px;
+        color: #aa9290;
+        margin-top: 6px;
+      }
+
+      /* LAST SLIDE */
+
+      .choice-area {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .choice-btn {
+        border: none;
+        padding: 15px 23px;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 13px;
+        transition: 0.3s;
+      }
+
+      .yes-btn {
+        background: #d995a7;
+        color: white;
+      }
+
+      .time-btn {
+        background: white;
+        border: 1px solid #e9c5ce;
+        color: #ad7787;
+      }
+
+      .choice-btn:hover {
+        transform: translateY(-4px);
+      }
+
+      .response {
+        display: none;
+        margin: 25px auto 0;
+        padding: 20px;
+        max-width: 450px;
+        border-radius: 18px;
+        background: white;
+        line-height: 1.8;
+        color: #896b65;
+        animation: appear 0.5s ease;
+      }
+
+      /* PROGRESS */
+
+      .progress-area {
+        max-width: 280px;
+        margin: 30px auto 0;
+      }
+
+      .progress-text {
+        font-size: 11px;
+        color: #b78b91;
+        margin-bottom: 9px;
+      }
+
+      .progress {
+        height: 5px;
+        border-radius: 20px;
+        background: #f0dce0;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 25%;
+        background: #d995a7;
+        transition: 0.5s;
+      }
+
+      /* FOOTER */
+
+      footer {
+        text-align: center;
+        font-size: 11px;
+        color: #bb999b;
+        padding: 20px;
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 600px) {
+        .topbar {
+          padding: 17px 5%;
+        }
+
+        .slides {
+          padding: 25px 18px 40px;
+        }
+
+        .photo-grid {
+          gap: 13px;
+        }
+
+        .photo-frame {
+          height: 145px;
+        }
+
+        .photo-card {
+          padding: 8px 8px 15px;
+        }
+
+        .photo-caption {
+          font-size: 12px;
+        }
+
+        .photo-sub {
+          font-size: 10px;
+        }
+
+        .mascot-area {
+          height: 170px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background"></div>
+
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♡</div>
+
+    <!-- AUDIO -->
+
+    <audio id="bgMusic" loop>
+      <source src="audio/sempurna.mp3" type="audio/mpeg" />
+    </audio>
+
+    <header class="topbar">
+      <div class="logo">♡ A LITTLE STORY</div>
+
+      <button class="music-btn" onclick="toggleMusic()" id="musicButton">
+        ♫ Play Music
+      </button>
+    </header>
+
+    <main class="slides">
+      <!-- ================================= -->
+      <!-- SLIDE 1 -->
+      <!-- ================================= -->
+
+      <section class="slide active" id="slide1">
+        <div class="small-title">A LITTLE MESSAGE FOR YOU</div>
+
+        <h1>SEMANGAT TERUS CINTAKU<br />MISS YOU LOVE</h1>
+
+        <p class="description">
+          Hai, sayanggg apa kabar disana??
+          <br /><br />
+          Semoga kamu selalu baik baik aja semangat terus yaww, ngga sabar aku
+          ketemu kamu
+          <br /><br />
+          Oiya aku mau ngomong sesuatu:
+        </p>
+
+        <div class="mascot-area">
+          <div class="mascot-text">semoga kamu terhibur yaww</div>
+
+          <div class="dino">
+            <div class="dino-tail"></div>
+
+            <div class="dino-body">
+              <div class="dino-belly"></div>
+            </div>
+
+            <div class="dino-spike spike1"></div>
+            <div class="dino-spike spike2"></div>
+            <div class="dino-spike spike3"></div>
+
+            <div class="dino-eye eye-left"></div>
+            <div class="dino-eye eye-right"></div>
+
+            <div class="dino-cheek cheek-left"></div>
+            <div class="dino-cheek cheek-right"></div>
+
+            <div class="dino-mouth"></div>
+
+            <div class="dino-arm arm-left"></div>
+            <div class="dino-arm arm-right"></div>
+          </div>
+        </div>
+
+        <button class="next-btn" onclick="nextSlide()">Next Slide →</button>
+      </section>
+
+      <!-- ================================= -->
+      <!-- SLIDE 2 -->
+      <!-- ================================= -->
+
+      <section class="slide" id="slide2">
+        <div class="small-title">CHAPTER 01 — MEMORIES</div>
+
+        <h2>First Time Kita Fotobox</h2>
+
+        <p class="description">
+          Lucu ya, ini pertama kali kita fotobox gasih, moment ngga se berapa
+          tapi bikin aku seneng banget
+          <br /><br />
+          Bukan tentang seberapa mewah momennya, tapi tentang siapa yang ada di
+          dalamnya.
+        </p>
+
+        <div class="photo-grid">
+          <!-- FOTO 1 -->
+
+          <div class="photo-card">
+            <div class="photo-frame">
+              <img src="foto/foto 2.jpeg" alt="Kenangan pertama" />
+            </div>
+
+            <div class="photo-caption">A Moment To Remember</div>
+
+            <div class="photo-sub">Salah satu moment yg bakalan aku inget</div>
+          </div>
+
+          <!-- FOTO 2 -->
+
+          <div class="photo-card">
+            <div class="photo-frame">
+              <img src="foto/foto 1.jpeg" alt="Kenangan kedua" />
+            </div>
+
+            <div class="photo-caption">Little Things</div>
+
+            <div class="photo-sub">First time banget fotobox sama cewe</div>
+          </div>
+        </div>
+
+        <div class="mascot-area">
+          <div class="dino">
+            <div class="dino-tail"></div>
+            <div class="dino-body">
+              <div class="dino-belly"></div>
+            </div>
+            <div class="dino-spike spike1"></div>
+            <div class="dino-spike spike2"></div>
+            <div class="dino-spike spike3"></div>
+            <div class="dino-eye eye-left"></div>
+            <div class="dino-eye eye-right"></div>
+            <div class="dino-cheek cheek-left"></div>
+            <div class="dino-cheek cheek-right"></div>
+            <div class="dino-mouth"></div>
+            <div class="dino-arm arm-left"></div>
+            <div class="dino-arm arm-right"></div>
+          </div>
+        </div>
+
+        <button class="next-btn back-btn" onclick="prevSlide()">
+          ← Previous
+        </button>
+
+        <button class="next-btn" onclick="nextSlide()">Next Slide →</button>
+      </section>
+
+      <!-- ================================= -->
+      <!-- SLIDE 3 -->
+      <!-- ================================= -->
+
+      <section class="slide" id="slide3">
+        <div class="small-title">CHAPTER 02 — MEMORIES</div>
+
+        <h2>INI FOTO TER FAV BANGET SIH</h2>
+
+        <p class="description">
+          Ada foto dimana aku ngerasa dirayain banget di ulang tahunku, sama
+          foto yang bener" nentuin hubungan kita waktu itu coba kalo waktu itu
+          aku ngga effort minta maaf kesana, kayanya kita sekarang udah ngga
+          kenal dehh
+          <br /><br />
+
+          <br /><br />
+          Masih inget kan sayangg?
+        </p>
+
+        <div class="photo-grid">
+          <!-- FOTO 3 -->
+
+          <div class="photo-card">
+            <div class="photo-frame">
+              <img src="foto/foto 3.jpeg" alt="Kenangan ketiga" />
+            </div>
+
+            <div class="photo-caption">A Chapter Of Us</div>
+
+            <div class="photo-sub">Bagian dari cerita yang pernah ada.</div>
+          </div>
+
+          <!-- FOTO 4 -->
+
+          <div class="photo-card">
+            <div class="photo-frame">
+              <img src="foto/foto 4.jpeg" alt="Kenangan keempat" />
+            </div>
+
+            <div class="photo-caption">Still Meaningful</div>
+
+            <div class="photo-sub">Terima kasih untuk semua kenangannya.</div>
+          </div>
+        </div>
+
+        <div class="mascot-area">
+          <div class="mascot-text">Jangan buru-buru ya!</div>
+
+          <div class="dino">
+            <div class="dino-tail"></div>
+            <div class="dino-body">
+              <div class="dino-belly"></div>
+            </div>
+            <div class="dino-spike spike1"></div>
+            <div class="dino-spike spike2"></div>
+            <div class="dino-spike spike3"></div>
+            <div class="dino-eye eye-left"></div>
+            <div class="dino-eye eye-right"></div>
+            <div class="dino-cheek cheek-left"></div>
+            <div class="dino-cheek cheek-right"></div>
+            <div class="dino-mouth"></div>
+            <div class="dino-arm arm-left"></div>
+            <div class="dino-arm arm-right"></div>
+          </div>
+        </div>
+
+        <button class="next-btn back-btn" onclick="prevSlide()">
+          ← Previous
+        </button>
+
+        <button class="next-btn" onclick="nextSlide()">Next Slide →</button>
+      </section>
+
+      <!-- ================================= -->
+      <!-- SLIDE 4 -->
+      <!-- ================================= -->
+
+      <section class="slide" id="slide4">
+        <div class="small-title">THE LAST CHAPTER</div>
+
+        <h2>AKU MAU NGOMONG SERIUS!</h2>
+
+        <p class="description">
+          Aku tahu aku banyak salah sama kamu, banyak kurangnya WAJAR NAMANYA
+          MANUSIA BUKAN NABI COYY!! hehe canda
+          <br /><br />
+
+          Disini aku mau ngomong serius, pliss kali ini percaya yaa kenapa aku
+          bikin web gini, biar kamu bisa selalu inget dan bisa buka setiap kamu
+          mau
+          <br /><br />
+
+          <span class="highlight">
+            To The Point aja kali yaa "Jadi gimana kalo kita balikan?"
+          </span>
+        </p>
+
+        <div class="mascot-area">
+          <div class="mascot-text">PLISS DITERIMAA 😭</div>
+
+          <div class="dino">
+            <div class="dino-tail"></div>
+            <div class="dino-body">
+              <div class="dino-belly"></div>
+            </div>
+            <div class="dino-spike spike1"></div>
+            <div class="dino-spike spike2"></div>
+            <div class="dino-spike spike3"></div>
+            <div class="dino-eye eye-left"></div>
+            <div class="dino-eye eye-right"></div>
+            <div class="dino-cheek cheek-left"></div>
+            <div class="dino-cheek cheek-right"></div>
+            <div class="dino-mouth"></div>
+            <div class="dino-arm arm-left"></div>
+            <div class="dino-arm arm-right"></div>
+          </div>
+        </div>
+
+        <div class="choice-area">
+          <button class="choice-btn yes-btn" onclick="answer('yes')">
+            Boleh, kita coba lagi ❤️
+          </button>
+
+          <button class="choice-btn time-btn" onclick="answer('time')">
+            Aku butuh waktu 🙂
+          </button>
+        </div>
+
+        <div class="response" id="response"></div>
+
+        <br />
+
+        <button class="next-btn back-btn" onclick="prevSlide()">
+          ← Previous
+        </button>
+      </section>
+    </main>
+
+    <div class="progress-area">
+      <div class="progress-text" id="progressText">SLIDE 01 / 04</div>
+
+      <div class="progress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <footer>Made with a little courage and a lot of sincerity ♡</footer>
+
+    <script>
+      // =================================
+      // NAVIGASI SLIDE
+      // =================================
+
+      let currentSlide = 1;
+      const totalSlides = 4;
+
+      function showSlide(number) {
+        document.querySelectorAll(".slide").forEach((slide) => {
+          slide.classList.remove("active");
+        });
+
+        document.getElementById("slide" + number).classList.add("active");
+
+        currentSlide = number;
+
+        document.getElementById("progressText").innerText =
+          "SLIDE 0" + number + " / 04";
+
+        document.getElementById("progressFill").style.width =
+          (number / totalSlides) * 100 + "%";
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides) {
+          showSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 1) {
+          showSlide(currentSlide - 1);
+        }
+      }
+
+      // =================================
+      // MUSIK BACKSOUND
+      // =================================
+
+      const music = document.getElementById("bgMusic");
+      const musicButton = document.getElementById("musicButton");
+
+      let isPlaying = false;
+
+      function toggleMusic() {
+        if (!isPlaying) {
+          music
+            .play()
+            .then(() => {
+              isPlaying = true;
+              musicButton.innerText = "♫ Pause Music";
+            })
+            .catch(() => {
+              alert("File musik belum ditemukan. Periksa folder audio ya!");
+            });
+        } else {
+          music.pause();
+          isPlaying = false;
+          musicButton.innerText = "♫ Play Music";
+        }
+      }
+
+      // =================================
+      // PILIHAN SLIDE TERAKHIR
+      // =================================
+
+      function answer(choice) {
+        const response = document.getElementById("response");
+
+        response.style.display = "block";
+
+        if (choice === "yes") {
+          response.innerHTML = `
+      <h3 style="color:#bd8191;margin-bottom:10px;">
+        Seriously? ❤️
+      </h3>
+
+      YEYYYY!! FINALLY kita balikan lagi, maafin aku yang kemarin" yaww
+      aku akan selalu berusaha buat jadi yang baik dan jauh lebih baik
+
+      <br><br>
+
+      Semoga kali ini kita bisa saling memahami
+      dengan lebih baik.
+      <br><br>
+      Terimakasih banyakk yaww
+    `;
+        } else {
+          response.innerHTML = `
+      <h3 style="color:#bd8191;margin-bottom:10px;">
+        It's Okay. 🤍
+      </h3>
+
+      Kayaknya kamu salah pencet dehh!!
+
+      <br><br>
+
+      Pliss yaa mauuu, PLISSS BANGETTT
+
+      <br><br>
+      Tapi kalo masih gamau gapapa deh aku kasih waktu
+    `;
+        }
+      }
+
+      // =================================
+      // KEYBOARD NAVIGATION
+      // =================================
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowRight") {
+          nextSlide();
+        }
+
+        if (event.key === "ArrowLeft") {
+          prevSlide();
+        }
+      });
+
+      // SLIDE PERTAMA SAAT WEBSITE DIBUKA
+
+      showSlide(1);
+    </script>
+  </body>
+</html>
